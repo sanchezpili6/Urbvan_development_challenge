@@ -1,15 +1,8 @@
 <template>
-  <v-app>
+  <v-app class="my-3 mx-3">
     <v-row>
-      <v-col cols="4">
-        <v-card>
-          <v-card-title>Tabla de empleados</v-card-title>
-          <v-card-text>
-            <v-data-table>
-
-            </v-data-table>
-          </v-card-text>
-        </v-card>
+      <v-col cols="5">
+        <Employees/>
       </v-col>
       <v-col>
         <v-card>
@@ -21,11 +14,16 @@
 </template>
 
 <script>
-
+  import Employees from "../components/Employees";
   export default {
     name: 'Home',
 
     components: {
+      Employees
     },
   }
 </script>
+
+<style>
+
+</style>
