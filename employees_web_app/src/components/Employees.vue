@@ -4,7 +4,7 @@
       <v-text-field
           v-model="search"
           append-icon="mdi-magnify"
-          label="Search"
+          label="Buscar"
           single-line
           hide-details
       ></v-text-field>
@@ -16,8 +16,10 @@
         class="text--text"
         :footer-props="{
           showFirstLastPage: true,
-          itemsPerPageText: 'Filas por página'
+          itemsPerPageText: 'Filas por página',
+          itemsPerPageAllText: 'Todas'
         }"
+        @click:row="handleClick"
     ></v-data-table>
   </v-card>
 </template>
@@ -80,6 +82,11 @@ export default {
       ],
     }
   },
+  methods:{
+    handleClick(e) {
+      this.$emit('childToParent', e.id, e.name, e.lastName, e.startDate, e.birthday, e.position)
+    }
+  }
 }
 </script>
 
