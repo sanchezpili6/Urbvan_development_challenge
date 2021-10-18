@@ -4,7 +4,7 @@
       <v-text-field
           v-model="search"
           append-icon="mdi-magnify"
-          label="Search"
+          label="Buscar"
           single-line
           hide-details
       ></v-text-field>
@@ -16,8 +16,10 @@
         class="text--text"
         :footer-props="{
           showFirstLastPage: true,
-          itemsPerPageText: 'Filas por página'
+          itemsPerPageText: 'Filas por página',
+          itemsPerPageAllText: 'Todas'
         }"
+        @click:row="handleClick"
     ></v-data-table>
   </v-card>
 </template>
@@ -35,6 +37,7 @@ export default {
         { text: 'Fecha de ingreso',  filterable: false, value: 'startDate' },
         { text: 'Cumpleaños', filterable: true, value: 'birthday' },
         { text: 'Puesto', filterable: true, value: 'position' },
+        { text: 'Pronombres', filterable: true, value: 'pronouns'}
       ],
       employees: [
         {
@@ -44,6 +47,7 @@ export default {
           startDate: '25/10/2021',
           birthday: '18 abril',
           position: 'mid backend developer',
+          pronouns: 'Ella'
         },
         {
           id: 2,
@@ -52,34 +56,34 @@ export default {
           startDate: '25/10/2021',
           birthday: '18 abril',
           position: 'mid backend developer',
+          pronouns: 'Ella'
         },
         {
           id: 3,
-          name: 'María del Pilar',
-          lastName: 'Sánchez Castillejos',
+          name: 'Rafita',
+          lastName: 'Barajas ',
           startDate: '25/10/2021',
-          birthday: '18 abril',
+          birthday: '17 Octubre',
           position: 'mid backend developer',
+          pronouns: 'Él'
         },
         {
           id: 4,
-          name: 'María del Pilar',
-          lastName: 'Sánchez Castillejos',
+          name: 'Dani',
+          lastName: 'Castañeda',
           startDate: '22/10/2021',
-          birthday: '18 abril',
+          birthday: '10 marzo',
           position: 'mid backend developer',
-        },
-        {
-          id: 5,
-          name: 'María del Pilar',
-          lastName: 'Sánchez Castillejos',
-          startDate: '25/10/2020',
-          birthday: '18 abril',
-          position: 'mid backend developer',
+          pronouns: 'Él'
         },
       ],
     }
   },
+  methods:{
+    handleClick(e) {
+      this.$emit('childToParent', e.id, e.name, e.lastName, e.startDate, e.birthday, e.position, e.pronouns)
+    }
+  }
 }
 </script>
 
