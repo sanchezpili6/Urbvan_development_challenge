@@ -22,6 +22,7 @@
     </v-card>
     <v-card-actions>
       <v-spacer></v-spacer>
+      <AddNote/>
       <v-btn class="accent text--text">Editar</v-btn>
       <v-btn class="primary text--text">Dar de baja</v-btn>
     </v-card-actions>
@@ -29,8 +30,12 @@
 </template>
 
 <script>
+import AddNote from "./AddNote";
 export default {
   name: "EmployeeDetail.vue",
+  components:{
+    AddNote
+  },
   props:{
     id: String,
     name: String,
