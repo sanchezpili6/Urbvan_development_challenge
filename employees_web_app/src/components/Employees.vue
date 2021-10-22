@@ -50,15 +50,6 @@ export default {
           pronouns: 'Ella'
         },
         {
-          id: 2,
-          name: 'Karla Stephania',
-          lastName: 'López',
-          startDate: '25/10/2021',
-          birthday: '18 abril',
-          position: 'mid backend developer',
-          pronouns: 'Ella'
-        },
-        {
           id: 3,
           name: 'Rafita',
           lastName: 'Barajas ',

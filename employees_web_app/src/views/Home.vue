@@ -8,21 +8,21 @@
         <EmployeeDetail :id="id" :name="name" :lastName="lastName" :startDate="startDate" :birthday="birthday" :position="position" :pronouns="pronouns"/>
       </v-col>
     </v-row>
-    <v-btn rounded fab fixed bottom right large class="primary" @click="$emit('modal')">
-      <v-icon size="55" color="white">mdi-plus</v-icon>
-    </v-btn>
+    <AddEmployee/>
   </v-app>
 </template>
 
 <script>
   import Employees from "../components/Employees";
   import EmployeeDetail from "../components/EmployeeDetail";
+  import AddEmployee from "../components/AddEmployee";
   export default {
     name: 'Home',
 
     components: {
       Employees,
-      EmployeeDetail
+      EmployeeDetail,
+      AddEmployee
     },
     data: () => ({
       id: '',
