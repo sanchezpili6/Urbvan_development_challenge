@@ -24,7 +24,7 @@
           <v-spacer></v-spacer>
           <v-btn fab color="white" small @click="overlay=!overlay"><v-icon color="accent">mdi-close-thick</v-icon></v-btn>
         </v-card-title>
-        <v-card-subtitle align="center"><h2>{{ employee() }}: {{patientName}}</h2></v-card-subtitle>
+        <v-card-subtitle align="center"><h2>{{ employee() }}: {{name}}</h2></v-card-subtitle>
         <v-card-text>
             <v-form v-model="isValid">
               <v-row>
