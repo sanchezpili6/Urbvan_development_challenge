@@ -3,21 +3,27 @@
     <v-card-title class="my-3">
       <h2>Nombre: {{ name }} {{lastName}}</h2>
     </v-card-title>
-    <v-card-subtitle class="card-subtitle">
+    <v-card-subtitle class="card-subtitle text--text">
       <h2>Número de {{employee()}}: {{id}}</h2>
       <h2>Puesto: {{position}}</h2>
       <h2>Fecha de entrada: {{startDate}}</h2>
       <h2>Cumpleaños: {{birthday}}</h2>
     </v-card-subtitle>
-    <v-card v-for="(note, n) in notes" :key="n" class="my-3 mx-3 accent">
+    <v-card v-for="(note, n) in notes" :key="n" class="my-3 mx-3 text notes">
       <v-card-title>
-        {{note.title}}
+        <h1>
+          {{note.title}}
+        </h1>
       </v-card-title>
       <v-card-subtitle>
-        {{note.date}}
+        <h3>
+          {{note.date}}
+        </h3>
       </v-card-subtitle>
       <v-card-text>
-        {{note.content}}
+        <h3>
+          {{note.content}}
+        </h3>
       </v-card-text>
     </v-card>
     <v-card-actions>
@@ -72,5 +78,8 @@ export default {
 <style scoped>
   .card-subtitle{
     line-height: 200%;
+  }
+  .notes h1,h3{
+    color: white;
   }
 </style>
