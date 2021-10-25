@@ -5,11 +5,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="68ceb988-fb1d-449b-997e-2bdedf268b7c" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/aws.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/employees_web_app/src/components/EmployeeDetail.vue" beforeDir="false" afterPath="$PROJECT_DIR$/employees_web_app/src/components/EmployeeDetail.vue" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/api/app.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/database/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/database/db.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/envs.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/services/employees.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/database/init.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -76,7 +78,7 @@
       <workItem from="1635012286101" duration="6306000" />
       <workItem from="1635111719740" duration="6711000" />
       <workItem from="1635118920323" duration="222000" />
-      <workItem from="1635119152895" duration="496000" />
+      <workItem from="1635119152895" duration="3801000" />
     </task>
     <servers />
   </component>
