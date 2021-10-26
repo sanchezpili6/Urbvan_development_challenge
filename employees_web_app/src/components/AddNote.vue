@@ -24,26 +24,24 @@
           <v-spacer></v-spacer>
           <v-btn fab color="white" small @click="overlay=!overlay"><v-icon color="accent">mdi-close-thick</v-icon></v-btn>
         </v-card-title>
-        <v-card-subtitle align="center"><h2>{{ employee() }}: {{name}}</h2></v-card-subtitle>
         <v-card-text>
-            <v-form v-model="isValid">
+            <form @submit.prevent="submit" v-model="isValid">
               <v-row>
                 <v-spacer></v-spacer>
-                <v-text-field v-model="title" class="note" outlined label="Título de la nota" :rules="titleRules"></v-text-field>
+                <v-text-field v-model="form.title" class="note" outlined label="Título de la nota" :rules="titleRules"></v-text-field>
                 <v-spacer></v-spacer>
               </v-row>
               <v-row>
                 <v-spacer></v-spacer>
-                <v-textarea v-model="note" class="note" :rules="contentRules" full-width outlined height="400" label="Escribe el contenido de tu nota aquí..."></v-textarea>
+                <v-textarea v-model="form.content" class="note" :rules="contentRules" full-width outlined height="400" label="Escribe el contenido de tu nota aquí..."></v-textarea>
                 <v-spacer></v-spacer>
               </v-row>
-            </v-form>
-            <v-spacer></v-spacer>
-          <v-row justify="center">
-            <v-btn color="accent" :disabled="!isValid">
-              <h2 class="text--text">Guardar Nota</h2>
-            </v-btn>
-          </v-row>
+              <v-row justify="center">
+                <v-btn color="accent" :disabled="!isValid" type="submit">
+                  <h2 class="text--text">Guardar Nota</h2>
+                </v-btn>
+              </v-row>
+            </form>
         </v-card-text>
       </v-card>
     </v-overlay>
@@ -51,15 +49,16 @@
 </template>
 
 <script>
+import axios from "axios";
 export default {
   name: "AddEmployee",
-    props:{
-      employeeId: String,
-    },
     data: () =>({
       overlay: false,
-      title:'',
-      note:'',
+      form:{
+        title:'',
+        content:'',
+      },
+
       isValid: true,
       titleRules:[
         value => !!value || 'Se necesita un título'
@@ -69,6 +68,17 @@ export default {
       ]
     }),
     methods: {
+      submit() {
+        let employeeId = this.$route.query.Id;
+        this.overlay = false
+        const data = {"id":employeeId, "title": this.form.title, "content": this.form.content};
+
+        axios.post('http://localhost:3000/notes/add', data)
+            .then(function (response) {
+              console.log(JSON.stringify(response.data));
+            })
+        location.reload()
+      },
       employee(){
         if(this.pronouns == 'Ella'){
           return 'Empleada';

@@ -1,62 +1,77 @@
 from flask import Blueprint
 from flask import jsonify
 from flask import request
-from api.schemas import EmployeesSchema
-from database.db import Employees
-from database.db import db
+from database.db import employees
+from database.db import notes
+import json
 
 employee_blueprint = Blueprint('employee', __name__)
 
 
-@employee_blueprint.route('/users/<user_id>', methods=['GET'])
+@employee_blueprint.route('/employee', methods=['GET'])
+def get_employees():
+    employees_array = []
+    for employee in employees:
+        employees_array.append(employees[employee])
+    return jsonify(employees_array)
+
+
+@employee_blueprint.route('/employee/<employee_id>', methods=['GET'])
 def get_employee(employee_id):
-    session = db.session()
-    employee = session.query(Employees).filter(Employees.id == employee_id)
-
-    return jsonify(EmployeesSchema().dump(employee))
+    employee = employees.get(employee_id, {'employee': 'employee not found'})
+    return jsonify({'data': employee})
 
 
-@employee_blueprint.route('/users/<user_id>', methods=['PATCH'])
-def update_user(employee_id):
-    session = db.session()
-    query = session.query(Employees).filter(Employees.id == employee_id)
-
+@employee_blueprint.route('/employee/update', methods=['POST'])
+def update_user():
     content = request.get_json()
     if content is None:
         return 'Missing content', 400
 
-    data = EmployeesSchema().load(content)
-    query.update(data)
-    session.commit()
-
-    employee = query.first()
-    return jsonify(EmployeesSchema().dump(employee))
+    employees[content['id']] = content
+    return 'Usuario actualizado'
 
 
-@employee_blueprint.route('/users', methods=['POST'])
-def create_user():
+@employee_blueprint.route('/employee/delete/<employee_id>', methods=['GET'])
+def delete_user(employee_id):
+    employees.pop(employee_id)
+    return 'Usuario borrado'
+
+
+@employee_blueprint.route('/employee/add', methods=['POST'])
+def create_employee():
     content = request.get_json()
     if content is None:
         return 'Missing content', 400
-
-    session = db.session()
-    employee = session.query(Employees).filter(Employees.rfc == content['rfc']).first()
+    print(content)
+    employee = employees.get(content['id'])
 
     if employee is not None:
         return f'El empleado con el rfc: {content["rfc"]} ya existe', 409
 
-    new_employee = Employees(
-        id=content['id'],
-        name=content['name'],
-        last_name=content['last_name'],
-        start_date=content['start_date'],
-        birthday=content['birthday'],
-        job_position=content['job_position'],
-        pronouns=content['pronouns']
-    )
-    session.add(new_employee)
+    employees[content['id']] = content
 
-    session.commit()
+    return jsonify(employees)
 
-    employee = session.query(Employees).filter(Employees.rfc == content['rfc']).first()
-    return jsonify(EmployeesSchema().dump(employee))
+
+@employee_blueprint.route('/notes/add', methods=['POST'])
+def create_note():
+    content = request.get_json()
+    if content is None:
+        return 'Missing content', 400
+    print(notes)
+
+    notes[content['id']] = notes.get(content['id'], []) + [content]
+    print(notes)
+    return 'excelente'
+
+
+@employee_blueprint.route('/notes', methods=['GET'])
+def get_notes():
+    return jsonify(notes)
+
+
+@employee_blueprint.route('/notes/<employee_id>', methods=['GET'])
+def get_note(employee_id):
+    note = notes.get(employee_id, {'note': 'no notes'})
+    return jsonify({'data': note})

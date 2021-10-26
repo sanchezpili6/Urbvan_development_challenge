@@ -1,27 +1,40 @@
-from flask_sqlalchemy import SQLAlchemy
-from sqlalchemy import Column
-from sqlalchemy import DateTime
-from sqlalchemy import Integer
-from sqlalchemy import String
-from sqlalchemy.pool import NullPool
-from sqlalchemy import create_engine
-from datetime import datetime
+employees = {
+    "2": {
+        "id": "2",
+        "rfc": "abc123456723",
+        "name": "Dani",
+        "last_name": "Castaneda",
+        "start_date": "10/25/2021",
+        "birthday": "04/18/1998",
+        "job_position": "mid backend developer",
+        "pronouns": "Él"
+    },
+    "3": {
+        "id": "3",
+        "rfc": "abc123456723",
+        "name": "Dani",
+        "last_name": "Castaneda",
+        "start_date": "10/25/2021",
+        "birthday": "04/18/1998",
+        "job_position": "mid backend developer",
+        "pronouns": "Él"
+    }
+}
+notes = {
 
-from envs import SQLALCHEMY_DATABASE_URI
+    "2": [
+        {
+            "content": "Dani!3",
+            "id": "2",
+            "title": "nota de 2"
+        }
+    ],
+    "3": [
+        {
+            "content": "Dani!3",
+            "id": "3",
+            "title": "nota de 3"
+        }
+    ]
 
-engine = create_engine(SQLALCHEMY_DATABASE_URI, poolclass=NullPool)
-db = SQLAlchemy()
-
-
-class Employees(db.Model):
-    __tablename__ = "employee"
-
-    id = Column(Integer, primary_key=True)
-    rfc = Column(String(13), nullable=False)
-    name = Column(String(50), nullable=False)
-    last_name = Column(String(50), nullable=False)
-    start_date = Column(DateTime, default=datetime.utcnow)
-    birthday = Column(DateTime)
-    job_position = Column(String(100))
-    pronouns = Column(String(4))
-
+}

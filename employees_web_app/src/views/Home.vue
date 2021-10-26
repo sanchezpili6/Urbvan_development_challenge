@@ -1,11 +1,8 @@
 <template>
   <v-app class="my-3 mx-3">
     <v-row>
-      <v-col cols="5">
-        <Employees v-on:childToParent="onPatientClick"/>
-      </v-col>
       <v-col>
-        <EmployeeDetail :id="id" :name="name" :lastName="lastName" :startDate="startDate" :birthday="birthday" :position="position" :pronouns="pronouns"/>
+        <Employees/>
       </v-col>
     </v-row>
     <AddEmployee/>
@@ -14,33 +11,33 @@
 
 <script>
   import Employees from "../components/Employees";
-  import EmployeeDetail from "../components/EmployeeDetail";
   import AddEmployee from "../components/AddEmployee";
   export default {
     name: 'Home',
 
     components: {
       Employees,
-      EmployeeDetail,
       AddEmployee
     },
     data: () => ({
       id: '',
+      rfc:'',
       name: '',
-      lastName:'',
-      startDate:'',
+      last_name:'',
+      start_date:'',
       birthday:'',
-      position:'',
+      job_position:'',
       pronouns: ''
     }),
     methods:{
-      onPatientClick(id, name, lastName, startDate, birthday, position, pronouns){
+      onPatientClick(id, rfc, name, last_name, start_date, birthday, job_position, pronouns){
         this.id=id;
+        this.rfc=rfc;
         this.name=name;
-        this.lastName=lastName;
-        this.startDate=startDate;
+        this.last_name=last_name;
+        this.start_date=start_date;
         this.birthday=birthday;
-        this.position=position;
+        this.job_position=job_position;
         this.pronouns=pronouns;
       }
     }

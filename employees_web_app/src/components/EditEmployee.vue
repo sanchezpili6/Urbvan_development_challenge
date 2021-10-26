@@ -1,18 +1,11 @@
 <template>
   <v-container>
     <v-btn
-        fab
-        color="primary"
-        dark
-        fixed
-        bottom
-        right
-        class="add"
+        class="accent text--text"
         @click="overlay=!overlay"
     >
-      <v-icon size="50px">mdi-plus</v-icon>
+      <h4>Editar</h4>
     </v-btn>
-
     <v-overlay :value="overlay" z-index=  "1">
       <v-card
           elevation="2"
@@ -23,7 +16,7 @@
       >
         <v-card-title justify="center">
           <v-spacer></v-spacer>
-          <h1 style="font-size: 40px">CREAR NUEVO EMPLEADO</h1>
+          <h1 style="font-size: 40px">EDITAR EMPLEADO</h1>
           <v-spacer></v-spacer>
           <v-btn fab color="white" small @click="overlay=!overlay"><v-icon color="accent">mdi-close-thick</v-icon></v-btn>
         </v-card-title>
@@ -197,7 +190,7 @@ extend('regex', {
 })
 
 export default {
-  name: "AddEmployee",
+  name: "EditEmployee",
   components: {
     ValidationProvider,
     ValidationObserver,
@@ -231,7 +224,7 @@ export default {
       this.overlay = false
       const data = {"id":this.form.id,"rfc":this.form.rfc,"name":this.form.name,"last_name":this.form.last_name,"start_date":this.form.start_date,"birthday":this.form.birthday,"job_position":this.form.job_position,"pronouns":this.form.pronoun};
 
-      axios.post('http://localhost:3000/employee/add', data)
+      axios.post('http://localhost:3000/employee/update', data)
           .then(function (response) {
             console.log(JSON.stringify(response.data));
           })
