@@ -6,13 +6,15 @@
         dark
     >
       <div class="d-flex align-center">
-        <v-img
-            alt="Vuetify Logo"
-            class="shrink mr-2"
-            contain
-            src="https://urbvan.com/wp-content/themes/urbvan/assets/img/logo.svg"
-            transition="scale-transition"
-        />
+        <router-link to="/">
+          <v-img
+              alt="Vuetify Logo"
+              class="shrink mr-2"
+              contain
+              src="https://urbvan.com/wp-content/themes/urbvan/assets/img/logo.svg"
+              transition="scale-transition"
+          />
+        </router-link>
       </div>
 
       <v-spacer></v-spacer>

@@ -25,7 +25,7 @@
     <v-card-actions>
       <v-spacer></v-spacer>
       <AddNote/>
-      <v-btn class="accent text--text" @click="edit()"><h4>Editar</h4></v-btn>
+      <EditEmployee/>
       <v-btn class="primary text--text" @click="deleteEmployee()"><h4>Dar de baja</h4></v-btn>
     </v-card-actions>
   </v-card>
@@ -33,11 +33,13 @@
 
 <script>
 import AddNote from "./AddNote";
+import EditEmployee from "./EditEmployee"
 import axios from "axios";
 export default {
   name: "EmployeeDetail.vue",
   components:{
-    AddNote
+    AddNote,
+    EditEmployee
   },
   data: () => ({
     notes:[],

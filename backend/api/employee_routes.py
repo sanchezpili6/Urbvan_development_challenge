@@ -22,7 +22,7 @@ def get_employee(employee_id):
     return jsonify({'data': employee})
 
 
-@employee_blueprint.route('/employee/update', methods=['GET'])
+@employee_blueprint.route('/employee/update', methods=['POST'])
 def update_user():
     content = request.get_json()
     if content is None:
