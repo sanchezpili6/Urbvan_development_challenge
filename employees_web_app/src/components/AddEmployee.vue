@@ -149,7 +149,6 @@
                       v-model="form.birthday"
                       :max="(new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10)"
                       min="1950-01-01"
-                      @change="save"
                   ></v-date-picker>
                 </v-menu>
 
@@ -159,7 +158,7 @@
                       class="mr-4 accent text--text"
                       type="submit"
                   >
-                    submit
+                    Guardar
                   </v-btn>
                 </v-row>
               </form>
@@ -236,6 +235,7 @@ export default {
           .then(function (response) {
             console.log(JSON.stringify(response.data));
           })
+      location.reload()
     },
     clear(){
       this.name =  '';

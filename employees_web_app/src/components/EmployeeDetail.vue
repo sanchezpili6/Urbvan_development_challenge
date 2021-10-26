@@ -13,12 +13,12 @@
     <v-card v-for="(note, n) in notes" :key="n" class="my-3 mx-3 text notes">
       <v-card-title>
         <h1>
-          {{notes.title}}
+          {{note.title}}
         </h1>
       </v-card-title>
       <v-card-text>
         <h3>
-          {{notes.content}}
+          {{note.content}}
         </h3>
       </v-card-text>
     </v-card>
@@ -49,13 +49,18 @@ export default {
   async created(){
     let employeeId = this.$route.query.Id;
     axios.get(`http://localhost:3000/notes/${employeeId}`)
-        .then(response => this.notes = response.data['data']['0'])
+        .then(response => this.notes = response.data['data'])
     console.log(this.notes)
     axios.get(`http://localhost:3000/employee/${employeeId}`)
         .then(response => this.employee_details = response.data['data'])
   },
   methods:{
     edit(){},
+    deleteEmployee(){
+      let employeeId = this.$route.query.Id;
+      axios.get(`http://localhost:3000/employee/delete/${employeeId}`)
+      this.$router.replace('/');
+    },
     employee(){
       if(this.pronouns == 'Ella'){
         return 'empleada';

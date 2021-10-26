@@ -54,7 +54,7 @@ def create_employee():
     return jsonify(employees)
 
 
-@employee_blueprint.route('/notes/add', methods=['GET'])
+@employee_blueprint.route('/notes/add', methods=['POST'])
 def create_note():
     content = request.get_json()
     if content is None:
