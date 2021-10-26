@@ -230,9 +230,9 @@ export default {
     submit () {
       this.$refs.observer.validate()
       this.overlay = false
-      const data = JSON.stringify({"id":this.form.id,"rfc":this.form.rfc,"name":this.form.name,"last_name":this.form.last_name,"start_date":this.form.start_date,"birthday":this.form.birthday,"job_position":this.form.job_position,"pronouns":this.form.pronoun});
+      const data = {"id":this.form.id,"rfc":this.form.rfc,"name":this.form.name,"last_name":this.form.last_name,"start_date":this.form.start_date,"birthday":this.form.birthday,"job_position":this.form.job_position,"pronouns":this.form.pronoun};
 
-      axios.get('http://localhost:3000/employee',)
+      axios.post('http://localhost:3000/employee/add', data)
           .then(function (response) {
             console.log(JSON.stringify(response.data));
           })

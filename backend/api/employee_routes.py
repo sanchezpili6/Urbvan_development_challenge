@@ -3,6 +3,7 @@ from flask import jsonify
 from flask import request
 from database.db import employees
 from database.db import notes
+import json
 
 employee_blueprint = Blueprint('employee', __name__)
 
@@ -18,7 +19,7 @@ def get_employees():
 @employee_blueprint.route('/employee/<employee_id>', methods=['GET'])
 def get_employee(employee_id):
     employee = employees.get(employee_id, {'employee': 'employee not found'})
-    return jsonify(employee)
+    return jsonify({'data': employee})
 
 
 @employee_blueprint.route('/employee/update', methods=['GET'])
@@ -37,18 +38,19 @@ def delete_user(employee_id):
     return 'Usuario borrado'
 
 
-@employee_blueprint.route('/employee/add', methods=['GET'])
+@employee_blueprint.route('/employee/add', methods=['POST'])
 def create_employee():
     content = request.get_json()
     if content is None:
         return 'Missing content', 400
-
+    print(content)
     employee = employees.get(content['id'])
 
     if employee is not None:
         return f'El empleado con el rfc: {content["rfc"]} ya existe', 409
 
     employees[content['id']] = content
+
     return jsonify(employees)
 
 
@@ -57,17 +59,19 @@ def create_note():
     content = request.get_json()
     if content is None:
         return 'Missing content', 400
+    print(notes)
 
-    notes[content['id']] = content
+    notes[content['id']] = notes.get(content['id'], []) + [content]
+    print(notes)
     return 'excelente'
 
 
 @employee_blueprint.route('/notes', methods=['GET'])
 def get_notes():
-    return jsonify(list(notes.values()))
+    return jsonify(notes)
 
 
 @employee_blueprint.route('/notes/<employee_id>', methods=['GET'])
 def get_note(employee_id):
     note = notes.get(employee_id, {'note': 'no notes'})
-    return jsonify(note)
+    return jsonify({'data': note})
