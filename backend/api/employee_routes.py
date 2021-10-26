@@ -21,14 +21,14 @@ def get_employee(employee_id):
     return jsonify(employee)
 
 
-@employee_blueprint.route('/employee/update/<employee_id>', methods=['GET'])
-def update_user(employee_id):
+@employee_blueprint.route('/employee/update', methods=['GET'])
+def update_user():
     content = request.get_json()
     if content is None:
         return 'Missing content', 400
-    employees[employee_id] = content
-    return "Usuario actualizado"
 
+    employees[content['id']] = content
+    return 'Usuario actualizado'
 
 @employee_blueprint.route('/employee/delete/<employee_id>', methods=['GET'])
 def delete_user(employee_id):
