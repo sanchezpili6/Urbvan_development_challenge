@@ -36,11 +36,33 @@
               <form @submit.prevent="submit">
                 <validation-provider
                     v-slot="{ errors }"
+                    name="Id"
+                    rules="required|max:10"
+                >
+                  <v-text-field
+                      v-model="form.id"
+                      label="Id"
+                      required
+                  ></v-text-field>
+                </validation-provider>
+                <validation-provider
+                    v-slot="{ errors }"
+                    name="RFC"
+                    rules="required|max:13"
+                >
+                  <v-text-field
+                      v-model="form.rfc"
+                      label="RFC"
+                      required
+                  ></v-text-field>
+                </validation-provider>
+                <validation-provider
+                    v-slot="{ errors }"
                     name="Name"
                     rules="required|max:10"
                 >
                   <v-text-field
-                      v-model="name"
+                      v-model="form.name"
                       label="Nombres"
                       required
                   ></v-text-field>
@@ -51,7 +73,7 @@
                     rules="required|max:10"
                 >
                   <v-text-field
-                      v-model="lastNames"
+                      v-model="form.last_name"
                       label="Apellidos"
                       required
                   ></v-text-field>
@@ -62,7 +84,7 @@
                     rules="required|max:10"
                 >
                   <v-text-field
-                      v-model="position"
+                      v-model="form.job_position"
                       label="Puesto"
                       required
                   ></v-text-field>
@@ -73,7 +95,7 @@
                     rules="required"
                 >
                   <v-select
-                      v-model="select"
+                      v-model="form.pronoun"
                       :items="pronouns"
                       :error-messages="errors"
                       label="Pronombre"
@@ -91,7 +113,7 @@
                 >
                   <template v-slot:activator="{ on, attrs }">
                     <v-text-field
-                        v-model="startDate"
+                        v-model="form.start_date"
                         label="Fecha de ingreso"
                         prepend-icon="mdi-calendar"
                         readonly
@@ -100,7 +122,7 @@
                     ></v-text-field>
                   </template>
                   <v-date-picker
-                      v-model="startDate"
+                      v-model="form.start_date"
                       :max="(new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10)"
                       min="2016-01-01"
                       @change="save"
@@ -115,7 +137,7 @@
                 >
                   <template v-slot:activator="{ on, attrs }">
                     <v-text-field
-                        v-model="birthday"
+                        v-model="form.birthday"
                         label="Cumpleaños"
                         prepend-icon="mdi-calendar"
                         readonly
@@ -124,7 +146,7 @@
                     ></v-text-field>
                   </template>
                   <v-date-picker
-                      v-model="birthday"
+                      v-model="form.birthday"
                       :max="(new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10)"
                       min="1950-01-01"
                       @change="save"
@@ -151,6 +173,7 @@
 <script>
 import { required, digits, email, max, regex } from 'vee-validate/dist/rules'
 import { extend, ValidationObserver, ValidationProvider, setInteractionMode } from 'vee-validate'
+import axios from "axios";
 
 setInteractionMode('eager')
 
@@ -182,18 +205,22 @@ export default {
   },
   data: () =>({
     overlay: false,
-    name: '',
-    lastNames: '',
-    startDate: '',
-    birthday: '',
-    position: '',
     pronouns: [
       'Ella',
       'Elle',
       'Él'
     ],
-    select: null,
-    checkbox: null,
+    pronoun: null,
+    form:{
+      id:'',
+      name: '',
+      last_name: '',
+      start_date: '',
+      rfc:'',
+      birthday: '',
+      job_position: '',
+      pronoun: '',
+    }
   }),
   methods: {
     onButtonClick() {
@@ -203,7 +230,12 @@ export default {
     submit () {
       this.$refs.observer.validate()
       this.overlay = false
-      this.clear()
+      const data = JSON.stringify({"id":this.form.id,"rfc":this.form.rfc,"name":this.form.name,"last_name":this.form.last_name,"start_date":this.form.start_date,"birthday":this.form.birthday,"job_position":this.form.job_position,"pronouns":this.form.pronoun});
+
+      axios.get('http://localhost:3000/employee',)
+          .then(function (response) {
+            console.log(JSON.stringify(response.data));
+          })
     },
     clear(){
       this.name =  '';

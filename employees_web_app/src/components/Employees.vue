@@ -25,6 +25,7 @@
 </template>
 
 <script>
+import axios from "axios";
 export default {
   name: "Employees.vue",
   data () {
@@ -32,47 +33,24 @@ export default {
       search: '',
       headers: [
         { text: 'Id', filterable: true, value: 'id' },
+        { text: 'RFC', filterable: true, value: 'rfc' },
         { text: 'Nombre', filterable: true, value: 'name',},
-        { text: 'Apellidos', filterable: true, value: 'lastName' },
-        { text: 'Fecha de ingreso',  filterable: false, value: 'startDate' },
+        { text: 'Apellidos', filterable: true, value: 'last_name' },
+        { text: 'Fecha de ingreso',  filterable: false, value: 'start_date' },
         { text: 'Cumpleaños', filterable: true, value: 'birthday' },
-        { text: 'Puesto', filterable: true, value: 'position' },
+        { text: 'Puesto', filterable: true, value: 'job_position' },
         { text: 'Pronombres', filterable: true, value: 'pronouns'}
       ],
-      employees: [
-        {
-          id: 1,
-          name: 'María del Pilar',
-          lastName: 'Sánchez Castillejos',
-          startDate: '25/10/2021',
-          birthday: '18 abril',
-          position: 'mid backend developer',
-          pronouns: 'Ella'
-        },
-        {
-          id: 3,
-          name: 'Rafita',
-          lastName: 'Barajas ',
-          startDate: '25/10/2021',
-          birthday: '17 Octubre',
-          position: 'mid backend developer',
-          pronouns: 'Él'
-        },
-        {
-          id: 4,
-          name: 'Dani',
-          lastName: 'Castañeda',
-          startDate: '22/10/2021',
-          birthday: '10 marzo',
-          position: 'mid backend developer',
-          pronouns: 'Él'
-        },
-      ],
+      employees: []
     }
+  },
+  mounted (){
+    axios.get('http://localhost:3000/employee',)
+        .then(response => this.employees = response.data)
   },
   methods:{
     handleClick(e) {
-      this.$emit('childToParent', e.id, e.name, e.lastName, e.startDate, e.birthday, e.position, e.pronouns)
+      this.$emit('childToParent', e.id, e.rfc, e.name, e.last_name, e.start_date, e.birthday, e.job_position, e.pronouns)
     }
   }
 }
