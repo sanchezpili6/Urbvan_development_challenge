@@ -1,11 +1,12 @@
 <template>
   <v-card rounded="xl" class="text--text">
     <v-card-title class="my-3">
-      <h2>Nombre: {{ name }} {{last_name}}</h2>
+      <h2>Nombre: {{ name}} {{last_name}}</h2>
     </v-card-title>
     <v-card-subtitle class="card-subtitle text--text">
       <h2>Número de {{employee()}}: {{id}}</h2>
       <h2>Puesto: {{job_position}}</h2>
+      <h2>RFC: {{rfc}}</h2>
       <h2>Fecha de entrada: {{start_date}}</h2>
       <h2>Cumpleaños: {{birthday}}</h2>
     </v-card-subtitle>
@@ -24,8 +25,8 @@
     <v-card-actions>
       <v-spacer></v-spacer>
       <AddNote/>
-      <v-btn class="accent text--text">Editar</v-btn>
-      <v-btn class="primary text--text">Dar de baja</v-btn>
+      <v-btn class="accent text--text" @click="edit()"><h4>Editar</h4></v-btn>
+      <v-btn class="primary text--text" @click="deleteEmployee()"><h4>Dar de baja</h4></v-btn>
     </v-card-actions>
   </v-card>
 </template>
@@ -39,23 +40,21 @@ export default {
     AddNote
   },
   data: () => ({
-    notes:[]
+    notes:[],
+    name:'',
+    last_name:'',
   }),
-  props:{
-    id: String,
-    name: String,
-    rfc: String,
-    last_name: String,
-    start_date: String,
-    birthday: String,
-    job_position: String,
-    pronouns: String
-  },
-  mounted(){
-    axios.get(`http://localhost:3000/notes${this.id}`)
-        .then(response => this.notes = response.data)
+  props:['Id'],
+  async created(){
+    let employeeId = this.$route.query.Id;
+    axios.get(`http://localhost:3000/notes/${employeeId}`)
+    axios.get(`http://localhost:3000/employee/${employeeId}`)
+        .then(response => this.name = response.data['name'])
+    axios.get(`http://localhost:3000/employee/${employeeId}`)
+        .then(response => this.last_name = response.data['last_name'])
   },
   methods:{
+    edit(){},
     employee(){
       if(this.pronouns == 'Ella'){
         return 'empleada';

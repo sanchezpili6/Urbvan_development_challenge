@@ -50,6 +50,7 @@ export default {
   },
   methods:{
     handleClick(e) {
+      this.$router.replace('/Employee/?Id=' + e.id);
       this.$emit('childToParent', e.id, e.rfc, e.name, e.last_name, e.start_date, e.birthday, e.job_position, e.pronouns)
     }
   }

@@ -30,6 +30,7 @@ def update_user():
     employees[content['id']] = content
     return 'Usuario actualizado'
 
+
 @employee_blueprint.route('/employee/delete/<employee_id>', methods=['GET'])
 def delete_user(employee_id):
     employees.pop(employee_id)
